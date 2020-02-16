@@ -13,42 +13,48 @@ class Preview extends Component {
         };
     }
 
+    componentDidMount() {
+        this.updateState();
+    }
 
-    async componentDidMount() {
-        this.setState({
-            synonyms: await this.getSynonyms(this.props.word)
-        })
+    componentDidUpdate(prevProps) {
+        if (this.props.word !== prevProps.word) {
+            this.updateState();
+        }
+    }
+
+    updateState() {
+        this.getSynonyms(this.props.word).then(newSynonyms => {
+            this.setState({
+                synonyms: newSynonyms
+            })
+        });
     }
 
     async getSynonyms(word) {
-        console.log("sending request")
-        let response = await fetch(`https://cors-anywhere.herokuapp.com/https://sinonimosapi.netlify.com/.netlify/functions/api/?q=${word}/`, {
-            headers: { "X-Requested-With": "XMLHttpRequest" }
-        });
+        let response = await fetch(`https://sinonimosapi.netlify.com/.netlify/functions/api/?q=${word}/`);
 
         let responseJson = await response.json();
 
-        if (responseJson == {}) {
+        if (!Object.keys(responseJson).length) {
+            console.log("No synonyms were found");
             return {
                 "Nenhum sinonimo foi encontrado": ["Verifique a palavra digitada"]
             }
-        }
+        };
 
         for (let meaning of Object.keys(responseJson)) {
             responseJson[meaning] = responseJson[meaning].join(", ").captalize()
-        }
-
-        console.log("json is ready")
-
+        };
         return responseJson;
     }
 
     render() {
         let { synonyms } = this.state;
         return Object.keys(this.state.synonyms).length ? (
-            <div className={styles.wrapper} id="wrapper">
+            <div id="wrapper" className={styles.wrapper}>
                 <KeyboardNav id="keyboardNav" className={styles.keyboardNav}>
-                    <ul id="keyboardNav_ul_1121" className={styles.list}>
+                    <ul id="synonymsList" className={styles.list}>
                         {
                             Object.keys(synonyms).map(s => (
                                 <KeyboardNavItem className={styles.keyboardNavItem} key={s} onSelect={() => this.props.onSelect(s)}>
