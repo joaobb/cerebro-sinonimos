@@ -1,0 +1,47 @@
+.wrapper {
+    align-self: flex-start;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: all .3s linear;
+    margin: -5px;
+
+    overflow: auto;
+
+}
+
+.wrapper::-webkit-scrollbar { 
+    display: none;
+}
+
+.keyboardNav {
+    height: 100%;
+}
+
+.keyboardNavItem {
+    display: flex;
+    height: fit-content;
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    padding: 5px 0;
+}
+
+.list {
+    margin: 0;
+    padding: 0;
+}
+
+.synonyms {
+    font-weight: 100;
+}
+
+@keyframes scroll {
+    0% {
+        top: 50%;
+    }
+    100% {
+        top: -25%;
+    }
+}
