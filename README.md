@@ -13,5 +13,5 @@ Type any word you'd like to get some synonyms for!
 
 ## Related
 
-* [Cerebro](http://github.com/KELiON/cerebro) – Plugin extracted from core Cerebro app;
-* [cerebro-plugin](http://github.com/KELiON/cerebro-plugin) – boilerplate to create Cerebro plugins;
+* [Cerebro](http://github.com/KELiON/cerebro) – Main repo for Cerebro app;
+* [create-cerebro-plugin](https://github.com/KELiON/create-cerebro-plugin) – Create Cerebro plugins with no configuration ;
